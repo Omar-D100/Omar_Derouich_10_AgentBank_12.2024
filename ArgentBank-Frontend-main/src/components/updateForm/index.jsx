@@ -80,7 +80,6 @@ const UpdateForm = ({ onCancel }) => {
             type="text"
             className="inputForm"
             defaultValue={user?.userName || ''} // Affiche le username actuel
-            placeholder="Entrez votre nouveau nom d'utilisateur"
           />
         </div>
         <div className="form-group">
