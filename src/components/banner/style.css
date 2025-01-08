@@ -1,0 +1,93 @@
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #fff; /* Ajoutez une couleur de fond si nécessaire */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet élevé */
+  }
+  
+  .main-nav a {
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none; /* Supprime le soulignement par défaut */
+  }
+  
+  .main-nav a:hover {
+    color: #61b37b; /* Changement de couleur au survol */
+  }
+  
+  .main-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espace entre l'icône et le texte */
+    margin-right: 0.5rem;
+  }
+  
+  .main-nav-item:hover {
+    text-decoration: none; /* Supprime le soulignement au survol */
+  }
+  
+  .main-nav-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .main-nav-logo-image {
+    max-width: 100%;
+    width: 200px;
+  }
+  
+  .circleUser {
+    color: #61b37b;
+    font-size: 35px;
+  }
+  
+  .username {
+    color: #61b37b;
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: none !important;
+    margin-left: 15px;
+
+  }
+  
+  .powerOff {
+    color: #61b37b;
+    font-size: 30px;
+  }
+  
+  .sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+  }
+
+  .sign-in-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-color: #61b37b;
+    background-color: #61b37b;
+    color: #fff;
+    margin-left: 15px;
+    border-radius: 5px;
+
+  }
+  .banner-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+  }
+  
