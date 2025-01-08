@@ -1,0 +1,91 @@
+.transaction-container {
+    padding: 16px;
+    width: 80%;
+    margin: auto;
+ 
+  }
+  
+  .transaction-header {
+    margin-bottom: 16px; /* Espacement en bas de l'en-tête */
+    background-color:#61b37b;
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .transaction-info {
+    display: flex;
+    justify-content: space-between; /* Espacement entre les éléments de transaction-info */
+    color: white;
+  }
+  
+  .transaction-info div {
+    margin-right: 16px; /* Espacement à droite de chaque élément */
+  }
+  
+  .arrow-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .transaction-details {
+    margin-top: 16px; /* Espacement en haut des détails */
+    color: white;
+    text-align: left;
+  }
+  
+  .detail {
+    margin-bottom: 8px; /* Espacement en bas de chaque détail */
+  }
+
+  .arrow-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+  }
+
+  .edit-pencil{
+    color: white;
+    font-size: 16px;
+  }
+
+  .transaction-detail {
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.transaction-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.transaction-cell {
+  flex: 1;
+  text-align: left;
+  padding: 0 10px;
+}
+
+.param{
+  margin-left: 145px;
+}
+.param2{
+  margin-left: 204px;
+}
+.param3{
+  margin-left: 236px;
+}
+  
+  
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px; /* Espacement à gauche du bouton */
+  }
+  
+  
