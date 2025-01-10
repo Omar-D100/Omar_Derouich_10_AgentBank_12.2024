@@ -2,7 +2,6 @@ import './style.css'; // Importe le fichier CSS
 import { useState } from 'react'; 
 import useAuthStore from '../../components/state/store.js'; 
 import { Navigate } from 'react-router-dom'; 
-import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -61,15 +60,6 @@ function LoginForm() {
       console.error(err);
       setError('Une erreur est survenue lors de la connexion');
     }
-  };
-
-  export const isTokenExpired = (token: string | null) => {
-    if (!token) return false;
-    const decoded = jwtDecode(token);
-    if (decoded.exp && decoded.exp * 1000 < Date.now()) {
-      return true;
-    }
-    return false;
   };
 
   // Rendu du composant
