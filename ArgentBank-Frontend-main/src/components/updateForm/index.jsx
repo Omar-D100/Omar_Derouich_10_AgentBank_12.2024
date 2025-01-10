@@ -1,8 +1,7 @@
-import { useState } from 'react'; // Hook pour gérer l'état local
-import useAuthStore from '../state/store.js'; // Store d'authentification
-import './style.css'; // Importation des styles CSS
+import { useState } from 'react';
+import useAuthStore from '../state/store.js';
+import './style.css';
 
-// Fonction asynchrone pour mettre à jour le profil utilisateur via l'API
 async function updateUserProfile(username, token) {
   if (!token) {
     console.error('Token non trouvé');
@@ -20,7 +19,8 @@ async function updateUserProfile(username, token) {
     });
 
     if (!response.ok) {
-      throw new Error("Erreur lors de la mise à jour du nom d'utilisateur");
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Erreur lors de la mise à jour du nom d'utilisateur");
     }
 
     const data = await response.json();
@@ -31,44 +31,40 @@ async function updateUserProfile(username, token) {
   }
 }
 
-// Composant React pour le formulaire de mise à jour du profil
 // eslint-disable-next-line react/prop-types
 const UpdateForm = ({ onCancel }) => {
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Récupère les données de l'utilisateur depuis le store
   const user = useAuthStore((state) => state.user);
   const updateUser = useAuthStore((state) => state.updateUser);
   const accessToken = useAuthStore((state) => state.accessToken);
 
-  // Gestionnaire de soumission du formulaire
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     const username = event.target.username.value.trim();
 
     if (!username) {
       setError('Le nom d\'utilisateur ne peut pas être vide');
-      return;
-    }
-
-    if (!accessToken) {
-      setError('Token non trouvé');
+      setIsLoading(false);
       return;
     }
 
     try {
       await updateUserProfile(username, accessToken);
-      updateUser(username); // Met à jour le store avec le nouveau username
+      updateUser({ userName: username }); // Met à jour le store avec le nouveau username
       setError('');
       onCancel(); // Ferme le formulaire
     } catch (error) {
-      setError("Erreur lors de la mise à jour du nom d'utilisateur");
+      setError(error.message || "Erreur lors de la mise à jour du nom d'utilisateur");
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Rendu du formulaire
   return (
     <div className="edit-user-info">
       <h2>Edit user info</h2>
@@ -79,7 +75,7 @@ const UpdateForm = ({ onCancel }) => {
             id="username"
             type="text"
             className="inputForm"
-            defaultValue={user?.userName || ''} // Affiche le username actuel
+            defaultValue={user?.userName || ''}
           />
         </div>
         <div className="form-group">
@@ -88,7 +84,7 @@ const UpdateForm = ({ onCancel }) => {
             id="firstname"
             type="text"
             className="inputForm cantChange"
-            defaultValue={user?.firstName || ''} // Affiche le firstname actuel
+            defaultValue={user?.firstName || ''}
             disabled
           />
         </div>
@@ -98,14 +94,14 @@ const UpdateForm = ({ onCancel }) => {
             id="lastname"
             type="text"
             className="inputForm cantChange"
-            defaultValue={user?.lastName || ''} // Affiche le lastname actuel
+            defaultValue={user?.lastName || ''}
             disabled
           />
         </div>
         {error && <p className="error-message">{error}</p>}
         <div className="form-actions">
-          <button type="submit" className="submitForm">
-            Save
+          <button type="submit" className="submitForm" disabled={isLoading}>
+            {isLoading ? 'Saving...' : 'Save'}
           </button>
           <button type="button" onClick={onCancel} className="cancel-button">
             Cancel

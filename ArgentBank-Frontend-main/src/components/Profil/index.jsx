@@ -1,9 +1,8 @@
-// Importation des hooks, styles et données nécessaires
-import { useState, useEffect } from 'react'; // Hooks pour gérer l'état local et les effets
-import './style.css'; // Importation des styles CSS
-import data from '../../data/FeaturesItem.json'; // Importe les données JSON des transactions
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importe FontAwesome pour les icônes
-import { faChevronRight, faChevronDown ,faPencil } from '@fortawesome/free-solid-svg-icons'; // Importe les icônes chevron
+import { useState, useEffect } from 'react'; 
+import './style.css'; 
+import data from '../../data/FeaturesItem.json'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faChevronRight, faChevronDown ,faPencil } from '@fortawesome/free-solid-svg-icons'; 
 
 // Composant Transaction pour afficher et gérer les transactions
 const Transaction = () => {
