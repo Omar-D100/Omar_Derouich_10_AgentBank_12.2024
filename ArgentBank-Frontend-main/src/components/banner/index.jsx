@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/slice'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../assets/img/argentBankLogo.png';
+import logo from '../../assets/img/argentBankLogo.webp';
 
 // Composant Banner 
 function Banner() {
