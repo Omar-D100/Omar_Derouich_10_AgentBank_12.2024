@@ -1,13 +1,13 @@
 // Banner.js
 import './style.css';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; // Hooks Redux
-import { logout } from '../Redux/slice'; // Importe l'action de déconnexion
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Redux/slice'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/img/argentBankLogo.png';
 
-// Composant Banner (bannière de navigation)
+// Composant Banner 
 function Banner() {
   // Récupère l'état de l'utilisateur depuis Redux
   const { user, accessToken } = useSelector((state) => state.auth);

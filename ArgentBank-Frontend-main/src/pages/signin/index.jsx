@@ -1,10 +1,10 @@
 import './style.css'; // Importe le fichier CSS
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Importe les hooks Redux
+import { useDispatch, useSelector } from 'react-redux'; 
 import { Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { login } from '../../components/Redux/slice'; // Importe l'action login depuis ton slice
+import { login } from '../../components/Redux/slice'; 
 
 // Composant LoginForm pour la page de connexion
 function LoginForm() {

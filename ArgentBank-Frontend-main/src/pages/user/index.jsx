@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux'; // Utilise useSelector pour accéder à l'état Redux
+import { useSelector } from 'react-redux'; 
 import UpdateForm from '../../components/updateForm';
 import Profil from '../../components/Transaction/Transaction';
 import accountsData from '../../data/AccountCard.json';
@@ -24,6 +24,9 @@ export default function User() {
     return <Navigate to="/" />;
   }
 
+
+
+  
   // Rendu du composant
   return (
     <main>
