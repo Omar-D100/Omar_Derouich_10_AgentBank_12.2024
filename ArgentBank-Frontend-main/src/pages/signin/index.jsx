@@ -1,9 +1,10 @@
 import './style.css'; // Importe le fichier CSS
-import { useState } from 'react'; 
-import useAuthStore from '../../components/state/store.js'; 
-import { Navigate } from 'react-router-dom'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; // Importe les hooks Redux
+import { Navigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { login } from '../../components/Redux/slice'; // Importe l'action login depuis ton slice
 
 // Composant LoginForm pour la page de connexion
 function LoginForm() {
@@ -13,11 +14,12 @@ function LoginForm() {
   const [error, setError] = useState(''); // État pour les messages d'erreur
   const [rememberMe, setRememberMe] = useState(false); // État pour "Se souvenir de moi"
 
-  // Récupère le store d'authentification
-  const authStore = useAuthStore();
+  // Récupère le dispatch et l'état Redux
+  const dispatch = useDispatch();
+  const { accessToken } = useSelector((state) => state.auth); // Accède à l'état d'authentification
 
   // Redirige vers /user si l'utilisateur est déjà connecté
-  if (authStore.accessToken) {
+  if (accessToken) {
     return <Navigate to="/user" />;
   }
 
@@ -37,19 +39,21 @@ function LoginForm() {
       // Vérifie si la réponse est OK (statut 200-299)
       if (response.ok) {
         const data = await response.json(); // Extrait les données de la réponse
-        console.log(data);
         const token = data.body.token;
-        const profile = await fetch('http://localhost:3001/api/v1/user/profile', {
+
+        // Récupère le profil de l'utilisateur avec le token
+        const profileResponse = await fetch('http://localhost:3001/api/v1/user/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (profile.ok) {
-          const profileData = await profile.json();
-          authStore.login(profileData.body, token);
-          console.log('Connexion réussie', authStore); // Affiche l'état du store (pour le débogage)
-        alert('Connexion réussie !'); // Affiche une alerte de succès
-        }
-        // Met à jour le store d'authentification avec les informations de l'utilisateur et le token
 
+        if (profileResponse.ok) {
+          const profileData = await profileResponse.json();
+          // Dispatch l'action login pour mettre à jour l'état Redux
+          dispatch(login({ user: profileData.body, token }));
+          alert('Connexion réussie !'); // Affiche une alerte de succès
+        } else {
+          setError('Erreur lors de la récupération du profil');
+        }
       } else {
         // Gère les erreurs de la requête
         const errorData = await response.json();
@@ -62,12 +66,15 @@ function LoginForm() {
     }
   };
 
+
+
+  
   // Rendu du composant
   return (
     <main>
       <section className="sign-in-content">
         {/* Icône utilisateur */}
-        <FontAwesomeIcon className="sign-in-icon " icon={faCircleUser} />
+        <FontAwesomeIcon className="sign-in-icon" icon={faCircleUser} />
         <h1>Sign In</h1>
         {/* Formulaire de connexion */}
         <form onSubmit={handleSubmit}>

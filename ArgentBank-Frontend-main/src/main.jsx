@@ -1,31 +1,15 @@
-import { BrowserRouter, Routes , Route } from "react-router-dom";
-import { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from './components/Redux/store'; // Importe le store et le persistor
+import App from './app'; // Importe le composant App
 
-import Banner from "./components/banner";
-import Home from "./pages/home";
-import SignIn from "./pages/signin";
-import User  from "./pages/user";
-import UpdateForm from './components/updateForm';
-import Profil from './components/Profil';
-import Footer  from "./components/Footer";
+const root = createRoot(document.getElementById('root'));
 
-
-
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-  
-    <Banner/>
-    
-      <Routes>
-        
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/update" element={<UpdateForm />} />
-        <Route path="/profil" element={<Profil />} />
-
-      </Routes>
-    <Footer/>
-  
-  </BrowserRouter>
-)
+root.render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App /> {/* Utilise le composant App pour gérer le routage */}
+    </PersistGate>
+  </Provider>
+);

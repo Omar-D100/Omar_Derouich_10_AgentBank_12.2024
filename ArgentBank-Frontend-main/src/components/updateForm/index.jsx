@@ -1,7 +1,10 @@
+// UpdateForm.js
 import { useState } from 'react';
-import useAuthStore from '../state/store.js';
+import { useDispatch, useSelector } from 'react-redux'; // Hooks Redux
+import { updateUser } from '../Redux/slice'; // Importe l'action Redux
 import './style.css';
 
+// Fonction asynchrone pour mettre à jour le profil utilisateur via l'API
 async function updateUserProfile(username, token) {
   if (!token) {
     console.error('Token non trouvé');
@@ -31,15 +34,19 @@ async function updateUserProfile(username, token) {
   }
 }
 
+// Composant UpdateForm pour modifier les informations de l'utilisateur
 // eslint-disable-next-line react/prop-types
 const UpdateForm = ({ onCancel }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const user = useAuthStore((state) => state.user);
-  const updateUser = useAuthStore((state) => state.updateUser);
-  const accessToken = useAuthStore((state) => state.accessToken);
+  // Récupère l'état de l'utilisateur et le token depuis Redux
+  const { user, accessToken } = useSelector((state) => state.auth);
 
+  // Récupère la fonction dispatch pour déclencher des actions Redux
+  const dispatch = useDispatch();
+
+  // Gestion de la soumission du formulaire
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -53,10 +60,15 @@ const UpdateForm = ({ onCancel }) => {
     }
 
     try {
+      // Appel de la fonction pour mettre à jour le profil utilisateur via l'API
       await updateUserProfile(username, accessToken);
-      updateUser({ userName: username }); // Met à jour le store avec le nouveau username
+
+      // Met à jour l'état Redux avec le nouveau nom d'utilisateur
+      dispatch(updateUser({ userName: username }));
+
+      // Réinitialise l'erreur et ferme le formulaire
       setError('');
-      onCancel(); // Ferme le formulaire
+      onCancel();
     } catch (error) {
       setError(error.message || "Erreur lors de la mise à jour du nom d'utilisateur");
       console.error(error);
@@ -65,6 +77,7 @@ const UpdateForm = ({ onCancel }) => {
     }
   };
 
+  // Rendu du formulaire
   return (
     <div className="edit-user-info">
       <h2>Edit user info</h2>
@@ -78,6 +91,7 @@ const UpdateForm = ({ onCancel }) => {
             defaultValue={user?.userName || ''}
           />
         </div>
+
         <div className="form-group">
           <label>First name:</label>
           <input
@@ -88,6 +102,7 @@ const UpdateForm = ({ onCancel }) => {
             disabled
           />
         </div>
+
         <div className="form-group">
           <label>Last name:</label>
           <input
@@ -98,7 +113,9 @@ const UpdateForm = ({ onCancel }) => {
             disabled
           />
         </div>
+
         {error && <p className="error-message">{error}</p>}
+
         <div className="form-actions">
           <button type="submit" className="submitForm" disabled={isLoading}>
             {isLoading ? 'Saving...' : 'Save'}
