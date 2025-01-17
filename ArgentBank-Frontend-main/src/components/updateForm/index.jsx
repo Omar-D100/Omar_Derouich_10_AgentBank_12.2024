@@ -1,7 +1,7 @@
 // UpdateForm.js
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Hooks Redux
-import { updateUser } from '../Redux/slice'; // Importe l'action Redux
+import { useDispatch, useSelector } from 'react-redux'; 
+import { updateUser } from '../Redux/slice'; 
 import './style.css';
 
 // Fonction asynchrone pour mettre à jour le profil utilisateur via l'API

@@ -1,4 +1,3 @@
-// App.js
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Banner from "./components/banner";
 import Home from "./pages/home";
