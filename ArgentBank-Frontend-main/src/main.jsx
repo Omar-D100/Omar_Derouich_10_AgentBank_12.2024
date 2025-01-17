@@ -6,10 +6,13 @@ import App from './app';
 
 const root = createRoot(document.getElementById('root'));
 
+
 root.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App /> 
-    </PersistGate>
-  </Provider>
-);
+    // `Provider` permet à tous les composants de l'application d'accéder au store Redux
+    <Provider store={store}>
+      {/* `PersistGate` retarde le rendu de l'application jusqu'à ce que l'état persistant soit réhydraté */}
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  );

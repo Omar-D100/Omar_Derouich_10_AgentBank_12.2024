@@ -14,6 +14,7 @@ function LoginForm() {
   const [error, setError] = useState(''); // État pour les messages d'erreur
   const [rememberMe, setRememberMe] = useState(false); // État pour "Se souvenir de moi"
 
+  
   // Récupère le dispatch et l'état Redux
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.auth); // Accède à l'état d'authentification
@@ -27,6 +28,10 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Empêche le rechargement de la page
     setError(''); // Réinitialise les erreurs
+
+
+
+
 
     try {
       // Envoie une requête POST pour se connecter
@@ -65,6 +70,8 @@ function LoginForm() {
       setError('Une erreur est survenue lors de la connexion');
     }
   };
+
+
 
 
 
